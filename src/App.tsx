@@ -1,12 +1,15 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import Header from "./components/Header"
+
 function App() {
-
-
   return (
     <>
-      <div>
-        <h1>Building Duolingo</h1>
-      </div>
-      
+      <Router>
+        <Header />
+        <Routes>
+          <Route />
+        </Routes>
+      </Router>
     </>
   )
 }
