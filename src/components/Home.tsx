@@ -31,8 +31,8 @@ const Home = () => {
       <Typography variant="h4" p={"2rem"} textAlign={"center"}>
         Welcome, Begin your journey of learning
       </Typography>
-      <Stack 
-      direction={"row"}
+      <Stack
+        direction={"row"}
         spacing={"2rem"}
         p={"2rem"}
         alignItems={'center'}
@@ -46,9 +46,9 @@ const Home = () => {
         ))}
 
       </Stack>
-        <Typography textAlign={'center'}>
-          Choose from language from above
-        </Typography>
+      <Typography textAlign={'center'}>
+        Choose from language from above
+      </Typography>
     </>
   )
 }

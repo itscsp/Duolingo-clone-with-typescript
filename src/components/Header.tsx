@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{mb:"20px"}}>
       <Toolbar>
         <Box display="flex" justifyContent="center" width="100%">
           <Link to={'/'}>
