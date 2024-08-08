@@ -1,7 +1,8 @@
 import { ArrowBack, VolumeUp } from "@mui/icons-material";
 import { Button, Container, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { translateWords } from "../utils/features";
 
 const Learning = () => {
   const [count, setCount] = useState<number>(0);
@@ -12,6 +13,11 @@ const Learning = () => {
     setCount((prev) => prev + 1);
   };
 
+  useEffect(() => {
+    translateWords("kn").then(()=>{
+      console.log("Worked")
+    })
+  },[])
   return (
     <>
       <Button onClick={count === 0 ? () => navigate('/') : () => setCount((prev) => prev - 1)}>
