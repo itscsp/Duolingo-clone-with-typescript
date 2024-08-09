@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 const languages = [
   {
-    name: "Kannada",
-    code: 'kn'
+    name: "Hindi",
+    code: 'hi'
   },
   {
     name: "Tamil",

@@ -1,34 +1,49 @@
 import { ArrowBack, VolumeUp } from "@mui/icons-material";
 import { Button, Container, Stack, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { translateWords } from "../utils/features";
+import { fetchAudio, translateWords } from "../utils/features";
 import { useDispatch, useSelector } from "react-redux";
 import { clearState, getWordsFail, getWordsRequest, getWordsSuccess } from "../redux/slices";
 import Loader from "./Loader";
 
 const Learning = () => {
   const [count, setCount] = useState<number>(0);
-  const param = useSearchParams()[0].get("language") as LangType
+  const [audioSrc, setAudioSrc] = useState<string>("");
+  const audioRef = useRef(null);
+  const params = useSearchParams()[0].get("language") as LangType
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { loading, error, words } = useSelector((state: { root: StateType }) => state.root)
 
+  const audioHandler = async () => {
+    const player:HTMLAudioElement = audioRef.current
+
+    if(player) {
+      player.play()
+    } else{
+      const data = await fetchAudio(words[count]?.word, params);
+      console.log(data)
+      setAudioSrc(data);
+    }
+  }
+
   const nextHandler = (): void => {
     setCount((prev) => prev + 1);
+    setAudioSrc("")
   };
 
   useEffect(() => {
     dispatch(getWordsRequest())
-    translateWords(param)
+    translateWords(params)
       .then((arr) => dispatch(getWordsSuccess(arr)))
       .catch((error) => dispatch(getWordsFail(error)));
 
-      if(error){
-        alert(error);
-        dispatch(clearState())
-      }
+    if (error) {
+      alert(error);
+      dispatch(clearState())
+    }
   }, [])
 
   if (loading) return <Loader />
@@ -40,7 +55,7 @@ const Learning = () => {
         <ArrowBack />
       </Button>
       <Container>
-
+        {audioSrc && <audio src={audioSrc} autoPlay ref={audioRef}></audio>}
         <Typography m={"2rem 0"}>
           Learning Made Easy
         </Typography>
@@ -52,7 +67,7 @@ const Learning = () => {
           <Typography color={'blue'} variant={"h4"}>
             : {words[count]?.meaning}
           </Typography>
-          <Button >
+          <Button onClick={audioHandler} >
             <VolumeUp />
           </Button>
         </Stack>
