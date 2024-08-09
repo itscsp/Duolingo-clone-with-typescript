@@ -26,6 +26,9 @@ const generateMCQ = (
 };
 
 export const translateWords = async (params: LangType): Promise<WordType[]> => {
+  const key = import.meta.env.VITE_TRANSLATION_KEY;
+
+
   try {
     const words = generate(8).map((i) => ({
       Text: i,
@@ -44,7 +47,7 @@ export const translateWords = async (params: LangType): Promise<WordType[]> => {
         headers: {
           "Content-Type": "application/json",
           "x-rapidapi-key":
-            "426c8d86fcmshc5184fbe8e10759p1b1698jsn98c016490877",
+          key,
           "x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
         },
       }
