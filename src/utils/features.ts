@@ -1,7 +1,30 @@
 import axios from "axios";
+import _ from "lodash";
 import { generate } from "random-words";
 
-export const translateWords = async (params: LangType) => {
+const generateMCQ = (
+  meaning: {
+    Text: string;
+  }[],
+  index: number
+): string[] => {
+  const correctAnswer: string = meaning[index].Text;
+  //An Array with all words except fro correct answer
+  const allMeaningExceptForCorrect = meaning.filter(
+    (i) => i.Text !== correctAnswer
+  );
+
+  // Randomly generating 3 elements from incorrectArray
+  const incorrectOptions: string[] = _.sampleSize(allMeaningExceptForCorrect, 3).map(
+    (i) => i.Text
+  );
+
+  const mcqOptions = _.shuffle([...incorrectOptions, correctAnswer]);
+
+  return mcqOptions;
+};
+
+export const translateWords = async (params: LangType): Promise<WordType[]> => {
   try {
     const words = generate(8).map((i) => ({
       Text: i,
@@ -18,16 +41,45 @@ export const translateWords = async (params: LangType) => {
           textType: "plain",
         },
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
           "x-rapidapi-key":
             "426c8d86fcmshc5184fbe8e10759p1b1698jsn98c016490877",
           "x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
         },
       }
     );
-    console.log(response);
+
+    const receive: FeatchedDataType[] = response.data;
+
+    const arr: WordType[] = receive.map((i, index) => {
+      const options: string[] = generateMCQ(words, index);
+
+      return {
+        word: i.translations[0].text,
+        meaning: words[index].Text,
+        options: options,
+      };
+    });
+
+    return arr;
   } catch (error) {
     console.log(error);
     throw new Error("Some Error");
   }
 };
+
+export const countMatchElements = (
+  arr1: string[],
+  arr2: string[]
+): number => {
+  if(arr1.length!==arr2.length) throw new Error("Array are not equal");
+
+  let matchingCount = 0;
+
+  for (let index = 0; index < arr1.length; index++) {
+
+    if(arr1[index] === arr2[index]) matchingCount++;
+    
+  }
+  return matchingCount;
+}

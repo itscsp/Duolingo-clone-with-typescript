@@ -3,20 +3,20 @@ import { useNavigate } from "react-router-dom";
 
 const languages = [
   {
-    name: "Japanese",
-    code: 'ja'
+    name: "Kannada",
+    code: 'kn'
   },
   {
-    name: "Hindi",
-    code: 'hi'
+    name: "Tamil",
+    code: 'ta'
   },
   {
-    name: "Spanish",
-    code: 'es'
+    name: "Telugu",
+    code: 'te'
   },
   {
-    name: "French",
-    code: 'fr'
+    name: "Malayalam",
+    code: "ml"
   },
 ]
 

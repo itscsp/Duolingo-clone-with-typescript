@@ -2,7 +2,7 @@
 
 const Loader = () => {
   return (
-    <div>Loader</div>
+    <h3>Loading...</h3>
   )
 }
 

@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-type LangType = 'kn'|'hi'|'es'|'fr';
+type LangType = 'kn'|'ta'|'te'|'ml';
 
 type WordType = {
     word: string;
@@ -15,3 +15,9 @@ type WordType = {
     error?: string;
   }
   
+
+  type FeatchedDataType = {
+    translations: {
+      text:string
+    }[]
+  }
