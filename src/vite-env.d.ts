@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-type LangType = 'hi'|'ta'|'te'|'ml';
+type LangType = "hi"|"ta"|"te"|"ml";
 
 type WordType = {
     word: string;

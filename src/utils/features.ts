@@ -1,6 +1,6 @@
 import axios from "axios";
-import _ from "lodash";
 import { generate } from "random-words";
+import _ from "lodash";
 
 const generateMCQ = (
   meaning: {
@@ -26,13 +26,14 @@ const generateMCQ = (
 };
 
 export const translateWords = async (params: LangType): Promise<WordType[]> => {
-  const key = import.meta.env.VITE_TRANSLATION_KEY;
-
-
+  
+  
   try {
     const words = generate(8).map((i) => ({
       Text: i,
     }));
+
+    const key = import.meta.env.VITE_TRANSLATION_KEY;
 
     const response = await axios.post(
       "https://microsoft-translator-text.p.rapidapi.com/translate",
@@ -92,7 +93,6 @@ export const fetchAudio = async (
 
   const encodedParams = new URLSearchParams({
     src: text,
-    hl: language,
     r: "0",
     c: "mp3",
     f: "8khz_8bit_mono",

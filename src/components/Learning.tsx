@@ -18,7 +18,7 @@ const Learning = () => {
   const { loading, error, words } = useSelector((state: { root: StateType }) => state.root)
 
   const audioHandler = async () => {
-    const player:HTMLAudioElement = audioRef.current
+    const player: HTMLAudioElement = audioRef.current!;
 
     if(player) {
       player.play()
