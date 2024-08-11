@@ -1,5 +1,5 @@
-import { useTheme } from "@emotion/react";
-import { Button, Stack, Typography, useMediaQuery } from "@mui/material"
+// import { useTheme } from "@emotion/react";
+import { Button, Stack, Typography, useMediaQuery, useTheme } from "@mui/material"
 import { useNavigate } from "react-router-dom";
 
 const languages = [
