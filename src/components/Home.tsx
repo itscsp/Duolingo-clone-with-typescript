@@ -1,4 +1,5 @@
-import { Button, Stack, Typography } from "@mui/material"
+import { useTheme } from "@emotion/react";
+import { Button, Stack, Typography, useMediaQuery } from "@mui/material"
 import { useNavigate } from "react-router-dom";
 
 const languages = [
@@ -22,6 +23,8 @@ const languages = [
 
 const Home = () => {
   const navigate = useNavigate()
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const languageSelectHandler = (language: string): void => {
     navigate(`/learn?language=${language}`)
@@ -32,13 +35,12 @@ const Home = () => {
         Welcome, Begin your journey of learning
       </Typography>
       <Stack
-        direction={"row"}
-        spacing={"2rem"}
-        p={"2rem"}
-        alignItems={'center'}
-        justifyContent={'center'}
-
-      >
+      direction={isSmallScreen ? 'column' : 'row'} // Stack vertically on small screens
+      spacing={isSmallScreen ? '1rem' : '2rem'} // Adjust spacing based on screen size
+      p={isSmallScreen ? '1rem' : '2rem'} // Adjust padding based on screen size
+      alignItems="center"
+      justifyContent="center"
+    >
         {languages.map((i) => (
           <Button key={i.code} onClick={() => languageSelectHandler(i.code)} variant="contained">
             {i.name}
